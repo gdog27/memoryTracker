@@ -17,7 +17,7 @@ import { SupabaseService } from '../../services/supabase.service';
             <p class="modal-subtitle">Connect Memora to your live Supabase project.</p>
           </div>
           <button type="button" class="close-btn" (click)="close.emit()" title="Close dialog">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -80,7 +80,7 @@ import { SupabaseService } from '../../services/supabase.service';
             <div class="schema-title">Connected Supabase Database Tables:</div>
             <ul class="schema-list">
               <li><code>profiles</code> (id uuid, display_name varchar, created_at timestamptz)</li>
-              <li><code>memories</code> (id int8, user_id uuid, title varchar, memory_date date, category_id int8, mood varchar, content text, photo_path text, created_at, updated_at)</li>
+              <li><code>memories</code> (id int8, user_id uuid, title varchar, memory_date date, category_id int8, mood varchar, content text, photo_path text)</li>
               <li><code>categories</code> (id int8, name varchar)</li>
             </ul>
           </div>
@@ -114,7 +114,7 @@ import { SupabaseService } from '../../services/supabase.service';
   `,
   styles: [`
     .modal-header {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: flex-start;
@@ -122,7 +122,7 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-main);
       letter-spacing: -0.02em;
@@ -137,31 +137,34 @@ import { SupabaseService } from '../../services/supabase.service';
     .close-btn {
       color: var(--text-muted);
       padding: 4px;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-xs);
+      border: 1px solid transparent;
       display: flex;
       align-items: center;
+      transition: all var(--transition-fast);
     }
     .close-btn:hover {
       color: var(--text-main);
       background-color: var(--bg-surface-subtle);
+      border-color: var(--border-subtle);
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .status-summary-box {
       background: var(--bg-surface-subtle);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
     }
     .status-summary-box.connected {
-      background: var(--accent-sage-soft);
-      border-color: #86EFAC;
+      background: var(--accent-emerald-soft);
+      border-color: var(--accent-emerald-border);
     }
 
     .status-header {
@@ -172,22 +175,22 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .status-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #A8A29E;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: #9CA3AF;
     }
     .status-summary-box.connected .status-indicator {
-      background: #16A34A;
+      background: var(--accent-emerald);
     }
 
     .status-title {
-      font-size: 13.5px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
       color: var(--text-main);
     }
     .status-summary-box.connected .status-title {
-      color: var(--accent-sage);
+      color: var(--accent-emerald);
     }
 
     .status-desc {
@@ -197,9 +200,10 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .key-textarea {
-      min-height: 70px;
+      min-height: 64px;
       font-family: monospace;
-      font-size: 12px;
+      font-size: 11.5px;
+      border-radius: var(--radius-sm);
     }
 
     .key-hint {
@@ -208,17 +212,19 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .schema-box {
-      background-color: var(--bg-page);
+      background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
     }
 
     .schema-title {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11.5px;
+      font-weight: 700;
       color: var(--text-secondary);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .schema-list {
@@ -226,11 +232,11 @@ import { SupabaseService } from '../../services/supabase.service';
       padding-left: 0;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
     .schema-list li {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-secondary);
     }
 
@@ -247,7 +253,7 @@ import { SupabaseService } from '../../services/supabase.service';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       padding-top: 14px;
       border-top: 1px solid var(--border-subtle);
     }
@@ -255,24 +261,28 @@ import { SupabaseService } from '../../services/supabase.service';
     .footer-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       margin-left: auto;
     }
 
     .error-banner {
       background: var(--danger-soft);
       color: var(--danger-color);
-      padding: 10px 12px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      border: 1px solid var(--danger-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
 
     .success-banner {
-      background: var(--accent-sage-soft);
-      color: var(--accent-sage);
-      padding: 10px 12px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+      border: 1px solid var(--accent-emerald-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
   `]
 })
@@ -303,8 +313,10 @@ export class SupabaseModalComponent {
   }
 
   onDisconnect(): void {
-    this.supabase.disconnectSupabase();
-    this.url = '';
-    this.key = '';
+    if (confirm('Disconnect from Supabase and use local browser storage?')) {
+      this.supabase.disconnectSupabase();
+      this.url = '';
+      this.key = '';
+    }
   }
 }

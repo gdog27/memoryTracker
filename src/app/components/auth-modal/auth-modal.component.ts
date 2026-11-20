@@ -21,7 +21,7 @@ import { SupabaseService } from '../../services/supabase.service';
             </p>
           </div>
           <button type="button" class="close-btn" (click)="close.emit()" title="Close dialog">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -103,7 +103,7 @@ import { SupabaseService } from '../../services/supabase.service';
 
           <div class="auth-note">
             <span class="auth-note-badge">
-              {{ supabase.isConnectedToSupabase() ? '⚡ Supabase Auth' : '📁 Local Auth Mode' }}
+              {{ supabase.isConnectedToSupabase() ? 'Supabase Auth' : 'Local Auth' }}
             </span>
             <span class="auth-note-text">
               {{ supabase.isConnectedToSupabase() 
@@ -134,7 +134,7 @@ import { SupabaseService } from '../../services/supabase.service';
   `,
   styles: [`
     .modal-header {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: flex-start;
@@ -142,7 +142,7 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-main);
       letter-spacing: -0.02em;
@@ -157,13 +157,16 @@ import { SupabaseService } from '../../services/supabase.service';
     .close-btn {
       color: var(--text-muted);
       padding: 4px;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-xs);
+      border: 1px solid transparent;
       display: flex;
       align-items: center;
+      transition: all var(--transition-fast);
     }
     .close-btn:hover {
       color: var(--text-main);
       background-color: var(--bg-surface-subtle);
+      border-color: var(--border-subtle);
     }
 
     .auth-tabs {
@@ -174,17 +177,20 @@ import { SupabaseService } from '../../services/supabase.service';
 
     .auth-tab {
       flex: 1;
-      padding: 12px;
-      font-size: 13.5px;
+      padding: 10px 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-secondary);
       text-align: center;
       transition: all var(--transition-fast);
       position: relative;
+      border-radius: 0;
+      border: none;
     }
     .auth-tab.active {
       color: var(--text-main);
       background-color: var(--bg-surface);
+      font-weight: 700;
     }
     .auth-tab.active::after {
       content: '';
@@ -197,10 +203,10 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .password-hint {
@@ -211,23 +217,25 @@ import { SupabaseService } from '../../services/supabase.service';
     .auth-note {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 8px;
       padding: 10px 12px;
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      margin-top: 4px;
+      border-radius: var(--radius-sm);
+      margin-top: 2px;
     }
 
     .auth-note-badge {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
       white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .auth-note-text {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--text-secondary);
       line-height: 1.4;
     }
@@ -243,17 +251,21 @@ import { SupabaseService } from '../../services/supabase.service';
     .error-banner {
       background: var(--danger-soft);
       color: var(--danger-color);
-      padding: 10px 12px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      border: 1px solid var(--danger-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
 
     .info-banner {
-      background: var(--accent-sage-soft);
-      color: var(--accent-sage);
-      padding: 10px 12px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      background: var(--accent-emerald-soft);
+      color: var(--accent-emerald);
+      border: 1px solid var(--accent-emerald-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
   `]
 })
@@ -299,20 +311,21 @@ export class AuthModalComponent {
     if (this.isSignUp()) {
       const res = await this.supabase.signUp(this.email.trim(), this.password, this.fullName.trim());
       this.isSubmitting.set(false);
+
       if (res.success) {
-        this.infoMessage.set('Account created successfully! Welcome to Memora.');
+        this.infoMessage.set('Account created successfully!');
         setTimeout(() => this.close.emit(), 1200);
       } else {
-        this.errorMessage.set(res.error || 'Failed to create account.');
+        this.errorMessage.set(res.error || 'Failed to sign up.');
       }
     } else {
       const res = await this.supabase.signIn(this.email.trim(), this.password);
       this.isSubmitting.set(false);
+
       if (res.success) {
-        this.infoMessage.set('Signed in successfully.');
-        setTimeout(() => this.close.emit(), 1000);
+        this.close.emit();
       } else {
-        this.errorMessage.set(res.error || 'Failed to sign in. Please verify your credentials.');
+        this.errorMessage.set(res.error || 'Invalid email or password.');
       }
     }
   }

@@ -17,7 +17,7 @@ import { SupabaseService } from '../../services/supabase.service';
             <p class="modal-subtitle">Organize your moments into personal themes.</p>
           </div>
           <button type="button" class="close-btn" (click)="close.emit()" title="Close dialog">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -48,7 +48,7 @@ import { SupabaseService } from '../../services/supabase.service';
                 type="submit" 
                 class="btn btn-primary"
                 [disabled]="isSubmitting() || !newCategoryName.trim()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <line x1="12" y1="5" x2="12" y2="19"></line>
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
@@ -88,7 +88,7 @@ import { SupabaseService } from '../../services/supabase.service';
                       <span class="cat-item-name">{{ cat.name }}</span>
                     </div>
                     <span class="cat-item-count">
-                      {{ getMemoryCount(cat.id) }} {{ getMemoryCount(cat.id) === 1 ? 'memory' : 'memories' }}
+                      {{ getMemoryCount(cat.id) }} {{ getMemoryCount(cat.id) === 1 ? 'entry' : 'entries' }}
                     </span>
                   </div>
                 }
@@ -107,7 +107,7 @@ import { SupabaseService } from '../../services/supabase.service';
   `,
   styles: [`
     .modal-header {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: flex-start;
@@ -115,7 +115,7 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-main);
       letter-spacing: -0.02em;
@@ -130,38 +130,41 @@ import { SupabaseService } from '../../services/supabase.service';
     .close-btn {
       color: var(--text-muted);
       padding: 4px;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-xs);
+      border: 1px solid transparent;
       display: flex;
       align-items: center;
+      transition: all var(--transition-fast);
     }
     .close-btn:hover {
       color: var(--text-main);
       background-color: var(--bg-surface-subtle);
+      border-color: var(--border-subtle);
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     .input-with-button {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .cat-list-wrap {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .cat-list-header {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11.5px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       color: var(--text-muted);
       display: flex;
       align-items: center;
@@ -173,6 +176,7 @@ import { SupabaseService } from '../../services/supabase.service';
       font-weight: 600;
       color: var(--accent-vibrant);
       cursor: pointer;
+      border-radius: var(--radius-xs);
     }
     .btn-text-action:hover {
       text-decoration: underline;
@@ -183,7 +187,7 @@ import { SupabaseService } from '../../services/supabase.service';
       text-align: center;
       background: var(--bg-surface-subtle);
       border: 1px dashed var(--border-strong);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-sm);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -195,7 +199,7 @@ import { SupabaseService } from '../../services/supabase.service';
     .cat-items {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       max-height: 280px;
       overflow-y: auto;
     }
@@ -204,10 +208,14 @@ import { SupabaseService } from '../../services/supabase.service';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
-      background-color: var(--bg-surface-subtle);
+      padding: 9px 12px;
+      background-color: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-sm);
+      transition: border-color var(--transition-fast);
+    }
+    .cat-item:hover {
+      border-color: var(--border-strong);
     }
 
     .cat-name-group {
@@ -217,24 +225,25 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .cat-icon-folder {
-      color: var(--accent-vibrant);
+      color: var(--text-muted);
       display: flex;
       align-items: center;
     }
 
     .cat-item-name {
-      font-size: 13.5px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--text-main);
     }
 
     .cat-item-count {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
     }
 
     .modal-footer {
-      padding: 16px 24px;
+      padding: 14px 22px;
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: flex-end;
@@ -243,17 +252,21 @@ import { SupabaseService } from '../../services/supabase.service';
     .error-banner {
       background: var(--danger-soft);
       color: var(--danger-color);
+      border: 1px solid var(--danger-border);
       padding: 8px 12px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
 
     .success-banner {
       background: var(--accent-emerald-soft);
       color: var(--accent-emerald);
+      border: 1px solid var(--accent-emerald-border);
       padding: 8px 12px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
   `]
 })
@@ -298,7 +311,6 @@ export class CategoryModalComponent {
 
   async seedStarterCategories(): Promise<void> {
     this.isSubmitting.set(true);
-    this.errorMessage.set(null);
     await this.supabase.seedStarterCategories();
     this.isSubmitting.set(false);
   }

@@ -9,18 +9,18 @@ import { SupabaseService } from '../../services/supabase.service';
   template: `
     <header class="header">
       <div class="container header-inner">
-        <!-- Logo & Branding: Memora - Personal memory tracker, NO icon -->
+        <!-- Logo & Branding: Memora - Personal memory tracker -->
         <div class="brand-group">
           <h1 class="brand-title">
             <span class="brand-name">Memora</span>
-            <span class="brand-dash">-</span>
+            <span class="brand-dash">/</span>
             <span class="brand-subtitle">Personal memory tracker</span>
           </h1>
         </div>
 
         <!-- Right action cluster -->
         <div class="actions-group">
-          <!-- Database status indicator pill -->
+          <!-- Database status indicator -->
           <button 
             type="button"
             class="status-pill" 
@@ -85,9 +85,9 @@ import { SupabaseService } from '../../services/supabase.service';
           <!-- New Memory Primary CTA -->
           <button 
             type="button" 
-            class="btn btn-primary btn-sm highlight-btn"
+            class="btn btn-primary btn-sm"
             (click)="openCreateMemory.emit()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
@@ -104,14 +104,13 @@ import { SupabaseService } from '../../services/supabase.service';
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(10px);
     }
 
     .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 60px;
       gap: 12px;
     }
 
@@ -133,7 +132,7 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .brand-name {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--text-main);
@@ -141,12 +140,12 @@ import { SupabaseService } from '../../services/supabase.service';
 
     .brand-dash {
       font-size: 14px;
-      color: var(--text-muted);
+      color: var(--border-strong);
       font-weight: 400;
     }
 
     .brand-subtitle {
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--text-secondary);
       letter-spacing: -0.01em;
@@ -164,17 +163,17 @@ import { SupabaseService } from '../../services/supabase.service';
       align-items: center;
       gap: 6px;
       padding: 6px 10px;
-      border-radius: var(--radius-full);
-      background: var(--bg-surface-subtle);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       font-size: 12px;
       font-weight: 500;
       color: var(--text-secondary);
-      transition: all var(--transition-fast);
+      transition: border-color var(--transition-fast), background-color var(--transition-fast);
     }
     .status-pill:hover {
       border-color: var(--border-strong);
-      background: var(--bg-surface-hover);
+      background: var(--bg-surface-subtle);
     }
     .status-pill.connected {
       background: var(--accent-emerald-soft);
@@ -183,14 +182,13 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #A1A1AA;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: #9CA3AF;
     }
     .status-pill.connected .status-dot {
       background: var(--accent-emerald);
-      box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
     }
 
     .user-chip {
@@ -198,19 +196,19 @@ import { SupabaseService } from '../../services/supabase.service';
       align-items: center;
       gap: 7px;
       padding: 3px 8px;
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
-      background: var(--bg-surface-subtle);
+      background: var(--bg-surface);
     }
 
     .user-avatar {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--accent-vibrant);
-      color: white;
-      font-size: 12px;
-      font-weight: 600;
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-xs);
+      background: var(--text-main);
+      color: #FFFFFF;
+      font-size: 11.5px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -229,17 +227,13 @@ import { SupabaseService } from '../../services/supabase.service';
     .btn-icon-subtle {
       color: var(--text-muted);
       padding: 2px;
-      border-radius: 4px;
+      border-radius: var(--radius-xs);
       display: flex;
       align-items: center;
       transition: color var(--transition-fast);
     }
     .btn-icon-subtle:hover {
       color: var(--danger-color);
-    }
-
-    .highlight-btn {
-      font-weight: 600;
     }
 
     /* Mobile Responsive Header */
@@ -254,7 +248,7 @@ import { SupabaseService } from '../../services/supabase.service';
 
     @media (max-width: 520px) {
       .header-inner {
-        height: 56px;
+        height: 54px;
       }
       .status-text, .chevron-icon {
         display: none;
@@ -266,7 +260,7 @@ import { SupabaseService } from '../../services/supabase.service';
         display: none;
       }
       .btn-sm {
-        padding: 6px 10px;
+        padding: 5px 8px;
       }
     }
   `]

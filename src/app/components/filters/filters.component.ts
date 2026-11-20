@@ -13,7 +13,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
       <!-- Search input row -->
       <div class="search-row">
         <div class="search-input-wrapper">
-          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
             <path d="m21 21-4.3-4.3"></path>
           </svg>
@@ -26,7 +26,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
           />
           @if (filters().searchTerm) {
             <button type="button" class="clear-search-btn" (click)="onSearchChange('')" title="Clear search">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -54,7 +54,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
             class="btn btn-secondary btn-sm sort-btn"
             (click)="toggleSort()"
             [title]="filters().sortOrder === 'desc' ? 'Showing newest first' : 'Showing oldest first'">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="m3 16 4 4 4-4"></path>
               <path d="M7 20V4"></path>
               <path d="m21 8-4-4-4 4"></path>
@@ -65,7 +65,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
         </div>
       </div>
 
-      <!-- Categories Pills Row -->
+      <!-- Categories Row -->
       <div class="categories-row">
         <div class="category-chips-list">
           <!-- All Categories Chip -->
@@ -74,8 +74,8 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
             class="chip"
             [class.active]="filters().selectedCategoryId === null"
             (click)="selectCategory(null)">
-            <span>All Categories</span>
-            <span class="count-badge">{{ supabase.memories().length }}</span>
+            <span>All</span>
+            <span class="count-badge">({{ supabase.memories().length }})</span>
           </button>
 
           <!-- Individual Category Chips -->
@@ -86,7 +86,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
               [class.active]="filters().selectedCategoryId === cat.id"
               (click)="selectCategory(cat.id)">
               <span>{{ cat.name }}</span>
-              <span class="count-badge">{{ getCategoryCount(cat.id) }}</span>
+              <span class="count-badge">({{ getCategoryCount(cat.id) }})</span>
             </button>
           }
 
@@ -96,7 +96,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
             class="chip chip-add"
             (click)="openAddCategory.emit()"
             title="Create a new category">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
@@ -106,7 +106,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
 
         @if (hasActiveFilters()) {
           <button type="button" class="btn-clear-all" (click)="resetFilters()">
-            Clear Filters
+            Reset Filters
           </button>
         }
       </div>
@@ -116,15 +116,14 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
     .filters-container {
       background-color: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-bottom: 28px;
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 24px;
     }
 
     .search-row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
@@ -137,39 +136,38 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
 
     .search-icon {
       position: absolute;
-      left: 14px;
+      left: 12px;
       color: var(--text-muted);
       pointer-events: none;
     }
 
     .search-input {
       width: 100%;
-      height: 42px;
-      padding: 8px 36px 8px 38px;
-      font-size: 14px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      background-color: var(--bg-page);
+      height: 38px;
+      padding: 6px 32px 6px 36px;
+      font-size: 13.5px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-surface);
       color: var(--text-main);
-      transition: all var(--transition-fast);
+      transition: border-color var(--transition-fast);
     }
     .search-input:focus {
       outline: none;
-      border-color: var(--accent-vibrant);
-      background-color: var(--bg-surface);
-      box-shadow: 0 0 0 3px rgba(240, 90, 54, 0.15);
+      border-color: var(--text-main);
     }
 
     .clear-search-btn {
       position: absolute;
-      right: 12px;
+      right: 10px;
       color: var(--text-muted);
       display: flex;
       align-items: center;
       padding: 2px;
+      border-radius: var(--radius-xs);
     }
     .clear-search-btn:hover {
-      color: var(--accent-vibrant);
+      color: var(--text-main);
     }
 
     .filter-controls-right {
@@ -179,15 +177,18 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
     }
 
     .filter-select {
-      height: 42px;
-      padding: 8px 12px;
-      font-size: 13.5px;
-      min-width: 136px;
-      background-color: var(--bg-page);
+      height: 38px;
+      padding: 6px 10px;
+      font-size: 13px;
+      min-width: 130px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-surface);
     }
 
     .sort-btn {
-      height: 42px;
+      height: 38px;
+      border-radius: var(--radius-sm);
     }
 
     .categories-row {
@@ -195,30 +196,45 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-top: 14px;
-      padding-top: 14px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid var(--border-subtle);
     }
 
     .category-chips-list {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+    .chip:hover {
+      background-color: var(--bg-surface-subtle);
+      border-color: var(--text-secondary);
+      color: var(--text-main);
+    }
+    .chip.active {
+      background-color: var(--text-main);
+      color: var(--text-inverted);
+      border-color: var(--text-main);
+      font-weight: 600;
     }
 
     .count-badge {
       font-size: 11px;
       opacity: 0.8;
-      padding-left: 2px;
-      font-weight: 600;
-    }
-
-    .chip.active {
-      background-color: var(--accent-vibrant);
-      color: #FFFFFF;
-      border-color: var(--accent-vibrant);
-      box-shadow: 0 2px 6px rgba(240, 90, 54, 0.28);
+      margin-left: 2px;
+      font-variant-numeric: tabular-nums;
     }
 
     .chip-add {
@@ -233,7 +249,7 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
     }
 
     .btn-clear-all {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--accent-vibrant);
       font-weight: 600;
       cursor: pointer;
@@ -272,9 +288,6 @@ import { AVAILABLE_MOODS, MemoryFilters } from '../../models/memory.model';
         padding-bottom: 6px;
         width: 100%;
         -webkit-overflow-scrolling: touch;
-      }
-      .category-chips-list::-webkit-scrollbar {
-        height: 3px;
       }
     }
   `]
@@ -317,10 +330,6 @@ export class FiltersComponent {
     });
   }
 
-  getCategoryCount(categoryId: number | string): number {
-    return this.supabase.memories().filter(m => String(m.category_id) === String(categoryId)).length;
-  }
-
   hasActiveFilters(): boolean {
     const f = this.filters();
     return !!f.searchTerm || f.selectedCategoryId !== null || f.selectedMood !== null;
@@ -334,5 +343,9 @@ export class FiltersComponent {
       selectedYear: null,
       sortOrder: 'desc'
     });
+  }
+
+  getCategoryCount(catId: number | string): number {
+    return this.supabase.memories().filter(m => String(m.category_id) === String(catId)).length;
   }
 }

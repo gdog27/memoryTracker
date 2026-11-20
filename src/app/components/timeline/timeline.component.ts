@@ -12,7 +12,7 @@ import { SupabaseService } from '../../services/supabase.service';
       @if (monthGroups().length === 0) {
         <div class="empty-state">
           <div class="empty-icon-box">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
               <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
               <line x1="9" y1="9" x2="15" y2="9"></line>
               <line x1="9" y1="13" x2="13" y2="13"></line>
@@ -20,13 +20,13 @@ import { SupabaseService } from '../../services/supabase.service';
           </div>
           <h3 class="empty-title">No memories found</h3>
           <p class="empty-description">
-            There are no memories matching your current filters or search term. Try adjusting your search or capture a new moment.
+            There are no memories matching your current filters or search term. Try adjusting your filters or capture a new moment.
           </p>
           <button 
             type="button" 
             class="btn btn-primary btn-sm"
             (click)="openCreateMemory.emit()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
@@ -40,11 +40,12 @@ import { SupabaseService } from '../../services/supabase.service';
             <section class="month-section">
               <!-- Month Header Milestone -->
               <div class="month-milestone">
-                <div class="month-indicator-dot"></div>
-                <div class="month-badge-pill">
+                <div class="month-indicator-square"></div>
+                <div class="month-badge">
                   <span class="month-name">{{ group.monthLabel }}</span>
-                  <span class="month-count-tag">{{ group.memories.length }} {{ group.memories.length === 1 ? 'memory' : 'memories' }}</span>
+                  <span class="month-count-tag">{{ group.memories.length }} {{ group.memories.length === 1 ? 'entry' : 'entries' }}</span>
                 </div>
+                <div class="month-divider-line"></div>
               </div>
 
               <!-- Memory Cards list for this month -->
@@ -61,7 +62,7 @@ import { SupabaseService } from '../../services/supabase.service';
                       <div class="card-header">
                         <div class="card-tags">
                           <span class="memory-date-label">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                               <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
                               <line x1="16" y1="2" x2="16" y2="6"></line>
                               <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -70,7 +71,7 @@ import { SupabaseService } from '../../services/supabase.service';
                             {{ formatDate(memory.memory_date) }}
                           </span>
 
-                          <!-- Mood badge -->
+                          <!-- Mood badge - Clean subtle rounded tag -->
                           @if (getMoodConfig(memory.mood); as moodCfg) {
                             <span 
                               class="mood-badge"
@@ -81,7 +82,7 @@ import { SupabaseService } from '../../services/supabase.service';
                             </span>
                           }
 
-                          <!-- Category badge -->
+                          <!-- Category badge - Clean subtle rounded tag -->
                           <span class="category-pill">
                             {{ getCategoryName(memory.category_id) }}
                           </span>
@@ -94,7 +95,7 @@ import { SupabaseService } from '../../services/supabase.service';
                             class="action-btn"
                             (click)="editMemory.emit(memory)"
                             title="Edit memory">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                               <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
                               <path d="m15 5 4 4"></path>
                             </svg>
@@ -104,7 +105,7 @@ import { SupabaseService } from '../../services/supabase.service';
                             class="action-btn delete-action"
                             (click)="onDelete(memory)"
                             title="Delete memory">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                               <path d="M3 6h18"></path>
                               <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
                               <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
@@ -126,7 +127,7 @@ import { SupabaseService } from '../../services/supabase.service';
                             loading="lazy"
                           />
                           <div class="photo-overlay-indicator">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                               <polyline points="15 3 21 3 21 9"></polyline>
                               <polyline points="9 21 3 21 3 15"></polyline>
                               <line x1="21" y1="3" x2="14" y2="10"></line>
@@ -161,68 +162,73 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .month-section {
-      margin-bottom: 38px;
+      margin-bottom: 32px;
     }
 
     .month-milestone {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
+      gap: 12px;
+      margin-bottom: 16px;
       position: relative;
     }
 
-    .month-indicator-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
+    .month-indicator-square {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
       background-color: var(--accent-vibrant);
-      border: 3px solid var(--bg-page);
-      box-shadow: 0 0 0 2px rgba(240, 90, 54, 0.25);
       z-index: 2;
+      flex-shrink: 0;
     }
 
-    .month-badge-pill {
+    .month-badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 6px 14px;
+      gap: 8px;
+      padding: 4px 10px;
       background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-full);
-      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xs);
+      flex-shrink: 0;
     }
 
     .month-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: -0.01em;
       color: var(--text-main);
     }
 
     .month-count-tag {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 500;
       color: var(--text-muted);
       border-left: 1px solid var(--border-subtle);
       padding-left: 8px;
     }
 
+    .month-divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-subtle);
+    }
+
     .month-memories-list {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      padding-left: 6px;
+      gap: 16px;
+      padding-left: 4px;
     }
 
     .memory-card {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       position: relative;
     }
 
     .card-spine {
-      width: 16px;
+      width: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -230,34 +236,34 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .spine-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
       background-color: var(--border-strong);
-      margin-top: 22px;
+      margin-top: 20px;
       z-index: 1;
     }
 
     .spine-line {
-      width: 2px;
+      width: 1px;
       flex: 1;
       background-color: var(--border-subtle);
-      margin-top: -4px;
+      margin-top: -3px;
       margin-bottom: -16px;
     }
 
+    /* Clean memory card with subtle rounded corners and NO floaty hover translation */
     .card-inner {
       flex: 1;
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 22px;
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
       box-shadow: var(--shadow-sm);
-      transition: all var(--transition-normal);
+      transition: border-color var(--transition-fast);
     }
     .card-inner:hover {
       border-color: var(--border-strong);
-      box-shadow: var(--shadow-md);
     }
 
     .card-header {
@@ -265,14 +271,14 @@ import { SupabaseService } from '../../services/supabase.service';
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
 
     .card-tags {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -281,19 +287,22 @@ import { SupabaseService } from '../../services/supabase.service';
       align-items: center;
       gap: 5px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-secondary);
+      letter-spacing: -0.01em;
     }
 
     .mood-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 3px 8px;
-      border-radius: var(--radius-full);
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
       font-size: 11px;
       font-weight: 600;
       border: 1px solid transparent;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     .category-pill {
@@ -302,8 +311,8 @@ import { SupabaseService } from '../../services/supabase.service';
       color: var(--text-secondary);
       background-color: var(--bg-surface-subtle);
       border: 1px solid var(--border-subtle);
-      padding: 3px 8px;
-      border-radius: var(--radius-full);
+      padding: 2px 7px;
+      border-radius: var(--radius-xs);
     }
 
     .card-actions {
@@ -313,9 +322,10 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .action-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: var(--radius-sm);
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-xs);
+      border: 1px solid transparent;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -323,27 +333,29 @@ import { SupabaseService } from '../../services/supabase.service';
       transition: all var(--transition-fast);
     }
     .action-btn:hover {
+      border-color: var(--border-strong);
       background-color: var(--bg-surface-subtle);
       color: var(--text-main);
     }
     .action-btn.delete-action:hover {
+      border-color: var(--danger-border);
       background-color: var(--danger-soft);
       color: var(--danger-color);
     }
 
     .memory-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.015em;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: var(--text-main);
-      margin-bottom: 12px;
-      line-height: 1.35;
+      margin-bottom: 10px;
+      line-height: 1.3;
     }
 
     .memory-photo-container {
       position: relative;
-      margin-bottom: 16px;
-      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      border-radius: var(--radius-sm);
       overflow: hidden;
       cursor: zoom-in;
       border: 1px solid var(--border-subtle);
@@ -360,20 +372,17 @@ import { SupabaseService } from '../../services/supabase.service';
       max-height: 420px;
       object-fit: cover;
       display: block;
-      transition: transform var(--transition-normal);
-    }
-    .memory-photo-container:hover .memory-image {
-      transform: scale(1.015);
+      border-radius: var(--radius-sm);
     }
 
     .photo-overlay-indicator {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(28, 25, 23, 0.75);
-      color: white;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #FFFFFF;
       padding: 4px 8px;
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-xs);
       font-size: 11px;
       font-weight: 500;
       display: flex;
@@ -381,15 +390,14 @@ import { SupabaseService } from '../../services/supabase.service';
       gap: 5px;
       opacity: 0;
       transition: opacity var(--transition-fast);
-      backdrop-filter: blur(4px);
     }
     .memory-photo-container:hover .photo-overlay-indicator {
       opacity: 1;
     }
 
     .memory-text-body {
-      font-size: 14.5px;
-      line-height: 1.65;
+      font-size: 14px;
+      line-height: 1.6;
       color: var(--text-secondary);
       white-space: pre-wrap;
       word-break: break-word;
@@ -399,67 +407,64 @@ import { SupabaseService } from '../../services/supabase.service';
     .empty-state {
       background: var(--bg-surface);
       border: 1px dashed var(--border-strong);
-      border-radius: var(--radius-lg);
-      padding: 56px 24px;
+      border-radius: var(--radius-md);
+      padding: 48px 24px;
       text-align: center;
-      max-width: 520px;
-      margin: 40px auto;
+      max-width: 500px;
+      margin: 32px auto;
     }
 
     .empty-icon-box {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
       background: var(--bg-surface-subtle);
-      color: var(--text-muted);
+      color: var(--text-secondary);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 16px;
+      margin: 0 auto 14px;
     }
 
     .empty-title {
-      font-size: 17px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--text-main);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .empty-description {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     @media (max-width: 640px) {
       .month-section {
-        margin-bottom: 28px;
+        margin-bottom: 24px;
       }
       .card-inner {
-        padding: 16px 14px;
-        border-radius: var(--radius-md);
+        padding: 14px;
       }
       .card-spine {
         display: none;
       }
       .month-memories-list {
         padding-left: 0;
-        gap: 14px;
+        gap: 12px;
       }
       .memory-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-      .card-tags {
-        gap: 6px;
+        font-size: 15.5px;
+        margin-bottom: 8px;
       }
       .memory-photo-container {
-        max-height: 280px;
+        max-height: 260px;
       }
       .photo-overlay-indicator {
-        opacity: 0.95;
-        font-size: 10.5px;
+        opacity: 1;
+        font-size: 10px;
       }
     }
   `]

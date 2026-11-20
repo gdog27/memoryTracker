@@ -31,48 +31,41 @@ import { SupabaseService } from '../../services/supabase.service';
   `,
   styles: [`
     .stats-section {
-      margin-top: 18px;
+      margin-top: 16px;
       margin-bottom: 24px;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 12px;
     }
 
+    /* Clean, non-interactive metric card with subtle rounding, NO orange line, and NO hover jump */
     .stat-card {
       background-color: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px;
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      transition: all var(--transition-fast);
-    }
-    .stat-card:hover {
-      border-color: var(--border-strong);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-1px);
+      /* Static and grounded: NO hover effects, NO translateY, NO box-shadow growth */
     }
 
+    /* Highlight card has no orange border line - shares the clean border with all stat cards */
     .stat-card-highlight {
-      background-color: var(--accent-vibrant-soft);
-      border-color: var(--accent-vibrant-border);
-    }
-    .stat-card-highlight:hover {
-      border-color: var(--accent-vibrant);
+      background-color: var(--bg-surface);
     }
 
     .stat-value {
-      font-size: 40px;
+      font-size: 34px;
       font-weight: 700;
       color: var(--text-main);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       line-height: 1;
       margin-bottom: 6px;
+      font-variant-numeric: tabular-nums;
     }
 
     .highlight-value {
@@ -80,27 +73,17 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .stat-label {
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     @media (max-width: 680px) {
       .stats-grid {
-        gap: 10px;
+        gap: 8px;
       }
-      .stat-card {
-        padding: 14px 12px;
-      }
-      .stat-value {
-        font-size: 30px;
-      }
-      .stat-label {
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 440px) {
       .stat-card {
         padding: 12px 10px;
       }
@@ -108,7 +91,7 @@ import { SupabaseService } from '../../services/supabase.service';
         font-size: 26px;
       }
       .stat-label {
-        font-size: 11px;
+        font-size: 10.5px;
       }
     }
   `]

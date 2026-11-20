@@ -123,43 +123,42 @@ import { SupabaseService } from '../../services/supabase.service';
 
     .login-card {
       background-color: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-md);
       width: 100%;
-      max-width: 440px;
+      max-width: 420px;
       overflow: hidden;
-      animation: slideUp 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: slideUp 160ms ease-out forwards;
     }
 
     .login-header {
-      padding: 28px 28px 20px 28px;
+      padding: 24px 24px 18px 24px;
       text-align: center;
     }
 
     .brand-badge {
       display: inline-block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--accent-vibrant);
-      letter-spacing: -0.01em;
-      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
     }
 
     .login-title {
-      font-size: 23px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       color: var(--text-main);
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     .login-subtitle {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-secondary);
-      margin-top: 6px;
+      margin-top: 4px;
       line-height: 1.45;
     }
 
@@ -171,13 +170,15 @@ import { SupabaseService } from '../../services/supabase.service';
 
     .auth-tab {
       flex: 1;
-      padding: 12px;
-      font-size: 14px;
+      padding: 10px 12px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-secondary);
       text-align: center;
       transition: all var(--transition-fast);
       position: relative;
+      border-radius: 0;
+      border: none;
     }
     .auth-tab:hover {
       color: var(--text-main);
@@ -185,6 +186,7 @@ import { SupabaseService } from '../../services/supabase.service';
     .auth-tab.active {
       color: var(--text-main);
       background-color: var(--bg-surface);
+      font-weight: 700;
     }
     .auth-tab.active::after {
       content: '';
@@ -193,62 +195,52 @@ import { SupabaseService } from '../../services/supabase.service';
       left: 0;
       right: 0;
       height: 2px;
-      background-color: var(--accent-vibrant);
+      background-color: var(--text-main);
     }
 
     .login-form {
-      padding: 28px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .password-hint {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     .submit-btn {
       width: 100%;
-      height: 44px;
-      font-size: 15px;
-      font-weight: 600;
-      margin-top: 8px;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      margin-top: 6px;
+      border-radius: var(--radius-sm);
     }
 
     .error-banner {
       background: var(--danger-soft);
       color: var(--danger-color);
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      line-height: 1.4;
+      border: 1px solid var(--danger-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
 
     .info-banner {
       background: var(--accent-emerald-soft);
       color: var(--accent-emerald);
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      line-height: 1.4;
+      border: 1px solid var(--accent-emerald-border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 480px) {
-      .login-header {
-        padding: 22px 20px 16px 20px;
-      }
-      .login-form {
-        padding: 20px;
-      }
-      .login-title {
-        font-size: 20px;
-      }
     }
   `]
 })
@@ -285,11 +277,7 @@ export class LoginViewComponent {
     this.infoMessage.set(null);
 
     if (this.isSignUp()) {
-      const res = await this.supabase.signUp(
-        this.email.trim(),
-        this.password,
-        this.displayName.trim()
-      );
+      const res = await this.supabase.signUp(this.email.trim(), this.password, this.displayName.trim());
       this.isSubmitting.set(false);
 
       if (res.success) {
@@ -301,7 +289,9 @@ export class LoginViewComponent {
       const res = await this.supabase.signIn(this.email.trim(), this.password);
       this.isSubmitting.set(false);
 
-      if (!res.success) {
+      if (res.success) {
+        this.infoMessage.set('Signed in successfully.');
+      } else {
         this.errorMessage.set(res.error || 'Invalid email or password.');
       }
     }

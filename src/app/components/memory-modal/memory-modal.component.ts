@@ -22,7 +22,7 @@ import { SupabaseService } from '../../services/supabase.service';
             </p>
           </div>
           <button type="button" class="close-btn" (click)="close.emit()" title="Close dialog">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -130,7 +130,7 @@ import { SupabaseService } from '../../services/supabase.service';
               <div class="photo-preview-wrap">
                 <img [src]="photoPreview()" alt="Attached preview" class="preview-img" />
                 <button type="button" class="remove-photo-btn" (click)="removePhoto()" title="Remove photo">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
@@ -139,13 +139,13 @@ import { SupabaseService } from '../../services/supabase.service';
               </div>
             } @else {
               <div class="photo-dropzone" (click)="fileInput.click()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                   <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
                   <circle cx="9" cy="9" r="2"></circle>
                   <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
                 </svg>
                 <div class="dropzone-text">
-                  <span class="dropzone-highlight">Click to upload an image</span> or drag here
+                  <span class="dropzone-highlight">Click to select an image</span> or drag here
                 </div>
                 <div class="dropzone-hint">PNG, JPG, WEBP supported</div>
                 <input 
@@ -160,7 +160,7 @@ import { SupabaseService } from '../../services/supabase.service';
               <!-- Or paste Image URL toggle -->
               <div class="url-fallback-row">
                 <button type="button" class="btn-link" (click)="showUrlInput.set(!showUrlInput())">
-                  {{ showUrlInput() ? 'Hide URL input' : 'Or use an image URL instead' }}
+                  {{ showUrlInput() ? 'Hide URL input' : 'Or enter an image URL directly' }}
                 </button>
                 @if (showUrlInput()) {
                   <input 
@@ -198,7 +198,7 @@ import { SupabaseService } from '../../services/supabase.service';
   `,
   styles: [`
     .modal-header {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: flex-start;
@@ -206,7 +206,7 @@ import { SupabaseService } from '../../services/supabase.service';
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-main);
       letter-spacing: -0.02em;
@@ -221,7 +221,8 @@ import { SupabaseService } from '../../services/supabase.service';
     .close-btn {
       color: var(--text-muted);
       padding: 4px;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-xs);
+      border: 1px solid transparent;
       display: flex;
       align-items: center;
       transition: all var(--transition-fast);
@@ -229,19 +230,20 @@ import { SupabaseService } from '../../services/supabase.service';
     .close-btn:hover {
       color: var(--text-main);
       background-color: var(--bg-surface-subtle);
+      border-color: var(--border-subtle);
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 22px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .form-row {
       display: flex;
-      gap: 14px;
+      gap: 12px;
     }
     .flex-1 {
       flex: 1;
@@ -255,8 +257,9 @@ import { SupabaseService } from '../../services/supabase.service';
 
     .link-action {
       font-size: 12px;
-      color: var(--accent-earth);
-      font-weight: 500;
+      color: var(--accent-vibrant);
+      font-weight: 600;
+      border-radius: var(--radius-xs);
     }
     .link-action:hover {
       text-decoration: underline;
@@ -265,18 +268,18 @@ import { SupabaseService } from '../../services/supabase.service';
     .mood-selector-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 6px;
     }
 
     .mood-pill-btn {
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 10px;
-      border-radius: var(--radius-md);
-      background-color: var(--bg-surface-subtle);
-      border: 1px solid var(--border-subtle);
-      font-size: 12.5px;
+      padding: 7px 8px;
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      font-size: 12px;
       font-weight: 500;
       color: var(--text-secondary);
       transition: all var(--transition-fast);
@@ -284,20 +287,20 @@ import { SupabaseService } from '../../services/supabase.service';
       justify-content: center;
     }
     .mood-pill-btn:hover {
-      border-color: var(--border-strong);
-      background-color: var(--bg-surface-hover);
+      border-color: var(--text-main);
+      color: var(--text-main);
     }
     .mood-pill-btn.selected {
       background-color: var(--pill-bg);
       color: var(--pill-color);
       border-color: var(--pill-border);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .photo-dropzone {
-      border: 2px dashed var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 24px 16px;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 20px 16px;
       text-align: center;
       cursor: pointer;
       color: var(--text-muted);
@@ -306,12 +309,12 @@ import { SupabaseService } from '../../services/supabase.service';
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      background-color: var(--bg-page);
+      background-color: var(--bg-surface-subtle);
     }
     .photo-dropzone:hover {
-      border-color: var(--border-strong);
-      color: var(--text-secondary);
-      background-color: var(--bg-surface-subtle);
+      border-color: var(--text-main);
+      color: var(--text-main);
+      background-color: var(--bg-surface);
     }
 
     .dropzone-text {
@@ -335,7 +338,7 @@ import { SupabaseService } from '../../services/supabase.service';
 
     .photo-preview-wrap {
       position: relative;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-sm);
       overflow: hidden;
       border: 1px solid var(--border-subtle);
       max-height: 220px;
@@ -349,21 +352,22 @@ import { SupabaseService } from '../../services/supabase.service';
       width: 100%;
       height: 220px;
       object-fit: cover;
+      border-radius: var(--radius-sm);
     }
 
     .remove-photo-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(28, 25, 23, 0.8);
-      color: white;
-      padding: 6px 10px;
-      border-radius: var(--radius-full);
-      font-size: 12px;
+      top: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.85);
+      color: #FFFFFF;
+      padding: 5px 9px;
+      border-radius: var(--radius-xs);
+      font-size: 11.5px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 4px;
-      backdrop-filter: blur(4px);
       transition: background-color var(--transition-fast);
     }
     .remove-photo-btn:hover {
@@ -378,13 +382,14 @@ import { SupabaseService } from '../../services/supabase.service';
       font-size: 12px;
       color: var(--text-muted);
       text-decoration: underline;
+      border-radius: var(--radius-xs);
     }
     .btn-link:hover {
       color: var(--text-main);
     }
 
     .url-input {
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .modal-footer {
@@ -392,26 +397,24 @@ import { SupabaseService } from '../../services/supabase.service';
       align-items: center;
       justify-content: flex-end;
       gap: 10px;
-      padding-top: 16px;
+      padding-top: 14px;
       border-top: 1px solid var(--border-subtle);
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .form-error-banner {
       background-color: var(--danger-soft);
       color: var(--danger-color);
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      font-size: 13px;
+      border: 1px solid var(--danger-border);
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
     }
 
     @media (max-width: 540px) {
-      .modal-card {
-        max-height: 94vh;
-        border-radius: var(--radius-md);
-      }
       .modal-header {
-        padding: 16px;
+        padding: 14px 16px;
       }
       .modal-body {
         padding: 16px;
@@ -424,9 +427,6 @@ import { SupabaseService } from '../../services/supabase.service';
       .mood-selector-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 6px;
-      }
-      .modal-footer {
-        padding-top: 12px;
       }
     }
   `]
@@ -468,14 +468,12 @@ export class MemoryModalComponent implements OnInit {
       this.content = memory.content;
       this.photoPreview.set(memory.photo_path || null);
     } else {
-      // Default to today's date in YYYY-MM-DD
       const today = new Date();
       const yyyy = today.getFullYear();
       const mm = String(today.getMonth() + 1).padStart(2, '0');
       const dd = String(today.getDate()).padStart(2, '0');
       this.memoryDate = `${yyyy}-${mm}-${dd}`;
 
-      // Default category if available
       const cats = this.supabase.categories();
       if (cats.length > 0) {
         this.categoryId = cats[0].id;
@@ -529,7 +527,6 @@ export class MemoryModalComponent implements OnInit {
     try {
       let finalPhotoPath = this.photoPreview();
 
-      // If user selected a new file, upload through SupabaseService
       if (this.selectedFile) {
         finalPhotoPath = await this.supabase.uploadPhoto(this.selectedFile);
       }
